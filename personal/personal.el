@@ -14,6 +14,8 @@
 		     go-mode
                      csharp-mode
                      js2-mode
+                     scala-mode2
+                     ensime
                      irony
                      ggtags
                      tern
@@ -52,7 +54,7 @@
 ;; Paren mode
 (show-paren-mode t)
 ;; Default theme
-(load-theme 'solarized-dark t)
+(load-theme 'zenburn t)
 ;; Blink
 (blink-cursor-mode t)
 ;; No guru mode
@@ -200,6 +202,12 @@
 ;; ;; Enable elpy
 ;; (elpy-enable)
 ;; (setq elpy-rpc-python-command "python3")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Scala configuration
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'ensime)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Keyboard configuration
