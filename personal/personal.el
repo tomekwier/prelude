@@ -54,7 +54,7 @@
 ;; Paren mode
 (show-paren-mode t)
 ;; Default theme
-(load-theme 'zenburn t)
+(load-theme 'solarized-dark t)
 ;; Blink
 (blink-cursor-mode t)
 ;; No guru mode
@@ -81,6 +81,8 @@
 ;; Enable company mode
 (require 'company)
 (autoload 'company-mode "company" nil t)
+(add-hook 'after-init-hook 'global-company-mode)
+(add-to-list 'company-backends 'company-tern)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Haskell configuration
@@ -132,7 +134,8 @@
                              (require 'js2-refactor)
                              (company-mode)
                              (tern-mode)
-                             (company-tern))))
+                             (setq js2-basic-offset 2)
+                             )))
 
 (setq js2-highlight-level 3)
 
