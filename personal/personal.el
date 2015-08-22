@@ -27,6 +27,7 @@
                      highlight-symbol
                      helm-gtags		     
                      helm-projectile
+                     helm-ag
                      solarized-theme
                      exec-path-from-shell
                      web-beautify
@@ -42,6 +43,7 @@
     (package-install package)))
 
 ;; Copy PATH
+(setq exec-path-from-shell-variables '("PATH" "MANPATH" "GOPATH" "GOROOT"))
 (exec-path-from-shell-initialize)
 
 (require 'yasnippet)
@@ -80,9 +82,15 @@
 
 ;; Enable company mode
 (require 'company)
+(require 'company-go)
 (autoload 'company-mode "company" nil t)
 (add-hook 'after-init-hook 'global-company-mode)
 (add-to-list 'company-backends 'company-tern)
+(add-to-list 'company-backends 'company-go)
+(setq company-tooltip-limit 20)                      ; bigger popup window
+(setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
+(setq company-echo-delay 0)                          ; remove annoying blinking
+(setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Haskell configuration
@@ -211,6 +219,26 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'ensime)
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Golang configuration
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-go-mode-hook ()
+; Call Gofmt before saving                                                    
+  (add-hook 'before-save-hook 'gofmt-before-save)
+; Use goimports instead of go-fmt
+  (setq gofmt-command "goimports")
+; Customize compile command to run go build
+  (if (not (string-match "go" compile-command))
+      (set (make-local-variable 'compile-command)
+           "go generate && go build -v && go test -v && go vet"))
+; Godef jump key binding                                                      
+  (local-set-key (kbd "M-.") 'godef-jump))
+
+(add-hook 'go-mode-hook 'my-go-mode-hook)
+; Setup oracle
+(load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Keyboard configuration
