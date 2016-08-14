@@ -236,12 +236,15 @@
       (set (make-local-variable 'compile-command)
            "go generate && go build -v && go test -v && go vet"))
 ; Godef jump key binding                                                      
-  (local-set-key (kbd "M-.") 'godef-jump))
+  (local-set-key (kbd "M-.") 'godef-jump)
+; Go-guru hl-identifier mode
+  (go-guru-hl-identifier-mode)
+  )
 
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 ; Setup guru
 (load-file "$GOPATH/src/golang.org/x/tools/cmd/guru/go-guru.el")
-
+(require 'go-guru)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Keyboard configuration
