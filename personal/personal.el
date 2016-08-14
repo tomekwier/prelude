@@ -239,8 +239,8 @@
   (local-set-key (kbd "M-.") 'godef-jump))
 
 (add-hook 'go-mode-hook 'my-go-mode-hook)
-; Setup oracle
-(load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+; Setup guru
+(load-file "$GOPATH/src/golang.org/x/tools/cmd/guru/go-guru.el")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
