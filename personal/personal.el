@@ -12,10 +12,13 @@
 (setq package-list '(
 		     exec-path-from-shell
 		     go-mode
+                     go-errcheck
+                     go-guru
+                     go-gopath
+                     go-projectile
                      csharp-mode
                      js2-mode
                      js2-refactor
-                     scala-mode2
                      ensime
                      irony
                      ggtags
