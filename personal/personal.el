@@ -28,6 +28,10 @@
                      company-go
                      company-irony
                      company-tern
+                     company-jedi
+                     elpy
+                     jedi
+                     jedi-core
                      highlight-symbol
                      helm-gtags		     
                      helm-projectile
@@ -60,7 +64,7 @@
 ;; Paren mode
 (show-paren-mode t)
 ;; Default theme
-(load-theme 'solarized-dark t)
+(load-theme 'zenburn t)
 ;; Blink
 (blink-cursor-mode t)
 ;; No guru mode
@@ -201,20 +205,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Python configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (defun python-custom-hook ()
-;;   (autoload 'jedi:setup "jedi" nil t)
-;;   (setq indent-tabs-mode nil
-;;         python-indent 2)
-;; )
+(defun python-custom-hook ()
+  (autoload 'jedi:setup "jedi" nil t)
+  (setq indent-tabs-mode nil
+        python-indent 4)
+  (jedi:setup)
+  (jedi:ac-setup)
+  (setq jedi:setup-keys t)  
+)
 
-;; ;; Python mode hooks
-;; (add-hook 'python-mode-hook 'python-custom-hook)
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (add-hook 'python-mode-hook 'jedi:ac-setup)
-;; (setq jedi:setup-keys t)
+;; Python mode hooks
+(add-hook 'python-mode-hook 'python-custom-hook)
 
 ;; ;; Enable elpy
-;; (elpy-enable)
+(elpy-enable)
 ;; (setq elpy-rpc-python-command "python3")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
