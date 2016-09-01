@@ -205,21 +205,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Python configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Enable elpy
+(elpy-enable)
+;; (setq elpy-rpc-python-command "python3")
+
 (defun python-custom-hook ()
   (autoload 'jedi:setup "jedi" nil t)
   (setq indent-tabs-mode nil
         python-indent 4)
   (jedi:setup)
   (jedi:ac-setup)
-  (setq jedi:setup-keys t)  
-)
+  (setq jedi:setup-keys t)
+  (define-key elpy-mode-map (kbd "M-.") 'jedi:goto-definition)
+  )
 
 ;; Python mode hooks
 (add-hook 'python-mode-hook 'python-custom-hook)
-
-;; ;; Enable elpy
-(elpy-enable)
-;; (setq elpy-rpc-python-command "python3")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Scala configuration
