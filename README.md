@@ -15,10 +15,10 @@ Emacs power users.
 
 Prelude is compatible **ONLY with GNU Emacs 24.4+**. In general you're
 advised to always run Prelude with the latest Emacs - currently
-**25.1**.
+**25.2**.
 
 You can support the development of Prelude via
-[Salt](https://salt.bountysource.com/teams/prelude) and
+[Salt](https://bountysource.com/teams/prelude) and
 [Gratipay](https://www.gratipay.com/prelude).
 
 [![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.1.3/dist/gratipay.png)](https://gratipay.com/prelude)
@@ -173,6 +173,15 @@ there are such).
 ### Automatic update
 
 Simply run <kbd>M-x prelude-update</kbd> from Emacs itself and restart Emacs afterwards.
+
+## Pinning packages
+
+By default, Prelude will install packages from the melpa and gnu package
+repositories. Occasionally package integration can break when upgrading packages.
+This can be avoided by pinning packages to stable versions in other repositories.
+To do so, copy `prelude-pinned-packages.el` from the sample directory to
+Prelude's root directory and adjust the [variables](https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Installation.html)
+inside accordingly.
 
 ## Enabling additional modules
 
