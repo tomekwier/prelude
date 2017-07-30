@@ -64,7 +64,7 @@
 ;; Paren mode
 (show-paren-mode t)
 ;; Default theme
-(load-theme 'zenburn t)
+(load-theme 'solarized-dark t)
 ;; Blink
 (blink-cursor-mode t)
 ;; No guru mode
