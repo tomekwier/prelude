@@ -223,6 +223,7 @@
         python-indent 4)
   (jedi:setup)
   (jedi:ac-setup)
+  (add-to-list 'company-backends 'company-jedi)
   (setq jedi:setup-keys t)
   (define-key elpy-mode-map (kbd "M-.") 'jedi:goto-definition)
   )
