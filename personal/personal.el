@@ -40,11 +40,15 @@
                      solarized-theme
                      exec-path-from-shell
                      web-beautify
+                     dimmer
                      yasnippet))
 
 ; fetch the list of packages available 
 (unless package-archive-contents
   (package-refresh-contents))
+
+; enable dimmer mode
+(dimmer-activate)
 
 ; install the missing packages
 (dolist (package package-list)
