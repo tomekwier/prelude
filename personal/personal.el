@@ -69,7 +69,7 @@
 ;; Paren mode
 (show-paren-mode t)
 ;; Default theme
-(load-theme 'solarized-dark t)
+(load-theme 'doom-vibrant t)
 ;; Blink
 (blink-cursor-mode t)
 ;; No guru mode
@@ -245,7 +245,6 @@
 ; Golang configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Setup go-guru
-(load-file "$GOPATH/src/golang.org/x/tools/cmd/guru/go-guru.el")
 (require 'go-guru)
 
 (defun my-go-mode-hook ()
