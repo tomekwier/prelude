@@ -7,7 +7,7 @@
 
 ; activate all the packages (in particular autoloads)
 (require 'package)
-(package-initialize)
+; (package-initialize)
 
 (setq package-list '(
 		     exec-path-from-shell
@@ -69,7 +69,7 @@
 ;; Paren mode
 (show-paren-mode t)
 ;; Default theme
-(load-theme 'doom-vibrant t)
+(load-theme 'solarized-dark t)
 ;; Blink
 (blink-cursor-mode t)
 ;; No guru mode
@@ -168,6 +168,13 @@
 ; web-mode configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+;; json indent
+(add-hook 'json-mode-hook
+          (lambda ()
+            (make-local-variable 'js-indent-level)
+            (setq json-reformat:indent-width 2)
+            (setq js-indent-level 2)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; C/C++ configuration
