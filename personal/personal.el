@@ -7,7 +7,6 @@
 
 ; activate all the packages (in particular autoloads)
 (require 'package)
-; (package-initialize)
 
 (setq package-list '(
 		     exec-path-from-shell
@@ -311,6 +310,7 @@
 (global-set-key (kbd "<f7>") 'helm-gtags-find-symbol)
 (global-set-key (kbd "<f8>") 'helm-gtags-find-files)
 (global-set-key (kbd "<C-f11>") 'helm-do-ag)
+(global-set-key (kbd "<C-f12>") 'helm-projectile-find-file)
 
 ;; Compilation
 (global-set-key (kbd "<C-f4>") '(lambda () (interactive) (compile "make clean")))
