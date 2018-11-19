@@ -7,7 +7,7 @@
 
 ; activate all the packages (in particular autoloads)
 (require 'package)
-(package-initialize)
+; (package-initialize)
 
 (setq package-list '(
 		     exec-path-from-shell
@@ -169,6 +169,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
+;; json indent
+(add-hook 'json-mode-hook
+          (lambda ()
+            (make-local-variable 'js-indent-level)
+            (setq json-reformat:indent-width 2)
+            (setq js-indent-level 2)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; C/C++ configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -245,7 +252,6 @@
 ; Golang configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Setup go-guru
-(load-file "$GOPATH/src/golang.org/x/tools/cmd/guru/go-guru.el")
 (require 'go-guru)
 
 (defun my-go-mode-hook ()
