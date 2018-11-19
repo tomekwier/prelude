@@ -69,7 +69,7 @@
 ;; Paren mode
 (show-paren-mode t)
 ;; Default theme
-(load-theme 'solarized-dark t)
+(load-theme 'deeper-blue t)
 ;; Blink
 (blink-cursor-mode t)
 ;; No guru mode
@@ -160,6 +160,18 @@
                              )))
 
 (setq js2-highlight-level 3)
+
+(add-hook 'typescript-mode-hook (lambda ()
+                                  (progn
+                                    (setq js2-basic-offset 2)
+                                    (setq typescript-indent-level 2)
+                                    )))
+
+
+(add-hook 'powershell-mode-hook (lambda ()
+                                  (progn
+                                    (setq powershell-indent 2)
+                                    )))
 
 ;; company-tern
 (add-to-list 'company-backends 'company-tern)
@@ -271,6 +283,24 @@
 
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 
+(defun my-json-mode-hook ()
+  (setq-default js2-basic-offset 2
+                js-indent-level 2
+                json-reformat:indent-width 2))
+(add-hook 'json-mode-hook 'my-json-mode-hook)
+
+(defun json-to-single-line (beg end)
+  "Collapse prettified json in region between BEG and END to a single line"
+  (interactive "r")
+  (if (use-region-p)
+      (save-excursion
+        (save-restriction
+          (narrow-to-region beg end)
+          (goto-char (point-min))
+          (while (re-search-forward "\\s-+" nil t)
+            (replace-match " "))))
+    (print "This function operates on a region")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Keyboard configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -280,6 +310,7 @@
 (global-set-key (kbd "<f6>") 'helm-gtags-find-rtag)
 (global-set-key (kbd "<f7>") 'helm-gtags-find-symbol)
 (global-set-key (kbd "<f8>") 'helm-gtags-find-files)
+(global-set-key (kbd "<C-f11>") 'helm-do-ag)
 
 ;; Compilation
 (global-set-key (kbd "<C-f4>") '(lambda () (interactive) (compile "make clean")))
