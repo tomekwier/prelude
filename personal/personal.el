@@ -11,7 +11,6 @@
 (setq package-list '(
 		     exec-path-from-shell
 		     go-mode
-                     bookmark+
                      go-errcheck
                      go-guru
                      go-gopath
@@ -91,8 +90,6 @@
 ;; Fix ansi-term and yasnippet
 (add-hook 'term-mode-hook (lambda()
                             (setq yas-dont-activate t)))
-;; Bookmark++
-(require 'bookmark+)
 
 ;; Enable company mode
 (require 'company)
