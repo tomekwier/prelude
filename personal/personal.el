@@ -61,13 +61,14 @@
 (require 'helm-config)
 (require 'helm-gtags)
 (require 'highlight-symbol)
+(require 'use-package)
 
 ;; Displays the time in the status bar
 (display-time)
 ;; Paren mode
 (show-paren-mode t)
 ;; Default theme
-(load-theme 'deeper-blue t)
+(load-theme 'solarized-dark t)
 ;; Blink
 (blink-cursor-mode t)
 ;; No guru mode
@@ -90,6 +91,67 @@
 ;; Fix ansi-term and yasnippet
 (add-hook 'term-mode-hook (lambda()
                             (setq yas-dont-activate t)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Python configuration
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq elpy-rpc-python-command "python3")
+
+(use-package elpy
+             :init
+             (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+             :custom
+             (elpy-rpc-backend "jedi"))
+
+(use-package python
+             :ensure nil
+             :mode ("\\.py" . python-mode)
+             :config
+             (setq python-indent-offset 4)
+             (elpy-enable))
+
+(defun python-custom-hook ()
+  (autoload 'jedi:setup "jedi" nil t)
+  (setq indent-tabs-mode nil
+        python-indent 4)
+  (jedi:setup)
+  (jedi:ac-setup)
+  (add-to-list 'company-backends 'company-jedi)
+  (setq jedi:setup-keys t)
+  (define-key elpy-mode-map (kbd "M-.") 'jedi:goto-definition)
+  )
+
+;; Python mode hooks
+(add-hook 'python-mode-hook 'python-custom-hook)
+
+(use-package company
+             :ensure t
+             :defer t
+             :diminish (company-mode . " ⓐ")
+             :init
+             (global-company-mode)
+             :config
+             (setq company-tooltip-align-annotations t
+                   company-idle-delay 0.2
+                   ;; min prefix of 2 chars
+                   company-minimum-prefix-length 2
+                   company-require-match nil))
+
+(use-package company-quickhelp          ; Show help in tooltip
+             :ensure t
+             :defer t
+             :init (with-eval-after-load 'company
+                     (company-quickhelp-mode)))
+
+(use-package company-jedi
+             :ensure t
+             :defer t
+             :init
+             (defun enable-jedi()
+               (setq-local company-backends
+                           (append '(company-jedi) company-backends)))
+             (with-eval-after-load 'company
+               (add-hook 'python-mode-hook 'enable-jedi)))
 
 ;; Enable company mode
 (require 'company)
@@ -228,27 +290,6 @@
 
 ;; Treat headers as c++ headers
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Python configuration
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Enable elpy
-(elpy-enable)
-;; (setq elpy-rpc-python-command "python3")
-
-(defun python-custom-hook ()
-  (autoload 'jedi:setup "jedi" nil t)
-  (setq indent-tabs-mode nil
-        python-indent 4)
-  (jedi:setup)
-  (jedi:ac-setup)
-  (add-to-list 'company-backends 'company-jedi)
-  (setq jedi:setup-keys t)
-  (define-key elpy-mode-map (kbd "M-.") 'jedi:goto-definition)
-  )
-
-;; Python mode hooks
-(add-hook 'python-mode-hook 'python-custom-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Scala configuration
