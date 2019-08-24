@@ -68,7 +68,7 @@
 ;; Paren mode
 (show-paren-mode t)
 ;; Default theme
-(load-theme 'solarized-dark t)
+(load-theme 'atom-one-dark t)
 ;; Blink
 (blink-cursor-mode t)
 ;; No guru mode
@@ -119,6 +119,7 @@
   (add-to-list 'company-backends 'company-jedi)
   (setq jedi:setup-keys t)
   (define-key elpy-mode-map (kbd "M-.") 'jedi:goto-definition)
+  (define-key elpy-mode-map (kbd "M-,") 'jedi:goto-definition-pop-marker)
   )
 
 ;; Python mode hooks
