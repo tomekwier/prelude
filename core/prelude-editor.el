@@ -46,7 +46,7 @@
 (setq-default tab-width 8)            ;; but maintain correct appearance
 
 ;; Newline at end of file
-(setq require-final-newline t)
+;; (setq require-final-newline t)
 
 ;; delete the selection with a keypress
 (delete-selection-mode t)

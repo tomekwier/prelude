@@ -95,37 +95,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Python configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq elpy-rpc-python-command "python3")
-
-;; (use-package elpy
-;;              :init
-;;              (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-;;              :custom
-;;              (elpy-rpc-backend "jedi"))
-
-;; (use-package python
-;;              :ensure nil
-;;              :mode ("\\.py" . python-mode)
-;;              :config
-;;              (setq python-indent-offset 4)
-;;              (elpy-enable))
+(setq elpy-rpc-python-command "/usr/bin/python3")
+(setq python-shell-interpreter "/usr/bin/python3")
 
 (use-package elpy
   :ensure t
   :init
   (elpy-enable))
 
-
 (defun python-custom-hook ()
-  (autoload 'jedi:setup "jedi" nil t)
   (setq indent-tabs-mode nil
         python-indent 4)
-  (jedi:setup)
-  (jedi:ac-setup)
-  (add-to-list 'company-backends 'company-jedi)
-  (setq jedi:setup-keys t)
-  (define-key elpy-mode-map (kbd "M-.") 'jedi:goto-definition)
-  (define-key elpy-mode-map (kbd "M-,") 'jedi:goto-definition-pop-marker)
   )
 
 ;; Python mode hooks
