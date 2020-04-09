@@ -27,9 +27,7 @@
                      company-go
                      company-irony
                      company-tern
-                     company-jedi
                      elpy
-                     jedi
                      jedi-core
                      highlight-symbol
                      helm-gtags		     
@@ -92,11 +90,14 @@
 (add-hook 'term-mode-hook (lambda()
                             (setq yas-dont-activate t)))
 
+(exec-path-from-shell-copy-env "PYTHONPATH")
+(exec-path-from-shell-copy-env "PATH")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Python configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq elpy-rpc-python-command "/usr/bin/python3")
-(setq python-shell-interpreter "/usr/bin/python3")
+(setq elpy-rpc-python-command "/usr/local/bin/python3")
+(setq python-shell-interpreter "/usr/local/bin/python3")
 
 (use-package elpy
   :ensure t
@@ -104,41 +105,13 @@
   (elpy-enable))
 
 (defun python-custom-hook ()
+  (setq elpy-rpc-backend "jedi")
   (setq indent-tabs-mode nil
         python-indent 4)
   )
 
 ;; Python mode hooks
 (add-hook 'python-mode-hook 'python-custom-hook)
-
-;; (use-package company
-;;              :ensure t
-;;              :defer t
-;;              :diminish (company-mode . " ⓐ")
-;;              :init
-;;              (global-company-mode)
-;;              :config
-;;              (setq company-tooltip-align-annotations t
-;;                    company-idle-delay 0.2
-;;                    ;; min prefix of 2 chars
-;;                    company-minimum-prefix-length 2
-;;                    company-require-match nil))
-
-;; (use-package company-quickhelp          ; Show help in tooltip
-;;              :ensure t
-;;              :defer t
-;;              :init (with-eval-after-load 'company
-;;                      (company-quickhelp-mode)))
-
-;; (use-package company-jedi
-;;              :ensure t
-;;              :defer t
-;;              :init
-;;              (defun enable-jedi()
-;;                (setq-local company-backends
-;;                            (append '(company-jedi) company-backends)))
-;;              (with-eval-after-load 'company
-;;                (add-hook 'python-mode-hook 'enable-jedi)))
 
 ;; Enable company mode
 (require 'company)
