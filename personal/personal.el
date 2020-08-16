@@ -14,11 +14,11 @@
                      go-errcheck
                      go-guru
                      go-gopath
+                     atom-one-dark-theme
                      go-projectile
                      csharp-mode
                      js2-mode
                      js2-refactor
-                     ensime
                      irony
                      ggtags
                      tern
@@ -26,7 +26,6 @@
                      company-ghc
                      company-go
                      company-irony
-                     company-tern
                      elpy
                      jedi-core
                      highlight-symbol
@@ -96,8 +95,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Python configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq elpy-rpc-python-command "/usr/local/bin/python3")
-(setq python-shell-interpreter "/usr/local/bin/python3")
+(setq elpy-rpc-python-command "/usr/local/opt/python@3.8/bin/python3")
+(setq python-shell-interpreter "/usr/local/opt/python@3.8/bin/python3")
+
+(if (eq 'system-type "darwin")
+    (defvar elpy-rpc-python-command "python3")
+  (defvar elpy-rpc-python-command "python"))
 
 (use-package elpy
   :ensure t
@@ -118,7 +121,6 @@
 (require 'company-go)
 (autoload 'company-mode "company" nil t)
 (add-hook 'after-init-hook 'global-company-mode)
-(add-to-list 'company-backends 'company-tern)
 (add-to-list 'company-backends 'company-go)
 (setq company-tooltip-limit 20)                      ; bigger popup window
 (setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
@@ -194,6 +196,29 @@
 ;; company-tern
 (add-to-list 'company-backends 'company-tern)
 
+
+;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+(setq lsp-keymap-prefix "s-l")
+
+(use-package lsp-mode
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (typescript-mode . lsp)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+;; optionally
+(use-package lsp-ui :commands lsp-ui-mode)
+;; if you are helm user
+(use-package helm-lsp :commands helm-lsp-workspace-symbol)
+
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
+;; optional if you want which-key integration
+(use-package which-key
+  :config
+  (which-key-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; web-mode configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -250,12 +275,6 @@
 
 ;; Treat headers as c++ headers
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Scala configuration
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'ensime)
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Golang configuration
@@ -320,6 +339,12 @@
 (global-set-key [f3] 'highlight-symbol-next)
 (global-set-key [(shift f3)] 'highlight-symbol-prev)
 (global-set-key [(meta f3)] 'highlight-symbol-query-replace)
+
+;; Handle yasnippet with autocompletion
+;; https://emacs.stackexchange.com/questions/9670/yasnippet-not-working-with-auto-complete-mode
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "<C-tab>") 'yas-expand)
 
 ; https://raw.githubusercontent.com/fabrizioschiavi/pragmatapro/master/emacs_snippets/pragmatapro-prettify-symbols-v0.827.el
 (setq prettify-symbols-unprettify-at-point 'right-edge)
