@@ -141,7 +141,7 @@
    `(org-level-3 ((t (,@headline ,@variable-tuple :height 1))))
    `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.1))))
    `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.1))))
-   `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
+   `(org-document-title ((t (,@headline ,@variable-tuple :height 1.1 :underline nil))))))
 
 (custom-theme-set-faces
   'user
