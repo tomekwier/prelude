@@ -9,34 +9,34 @@
 (require 'package)
 
 (setq package-list '(
-		     exec-path-from-shell
-		     go-mode
-                     go-errcheck
-                     go-guru
-                     go-gopath
-                     atom-one-dark-theme
-                     go-projectile
-                     csharp-mode
-                     js2-mode
-                     js2-refactor
-                     irony
-                     ggtags
-                     tern
-                     company
-                     company-ghc
-                     company-go
-                     company-irony
-                     elpy
-                     jedi-core
-                     highlight-symbol
-                     helm-gtags		     
-                     helm-projectile
-                     helm-ag
-                     solarized-theme
-                     exec-path-from-shell
-                     web-beautify
-                     dimmer
-                     yasnippet))
+		                  exec-path-from-shell
+		                  go-mode
+                      go-errcheck
+                      go-guru
+                      go-gopath
+                      atom-one-dark-theme
+                      go-projectile
+                      csharp-mode
+                      js2-mode
+                      js2-refactor
+                      irony
+                      ggtags
+                      tern
+                      company
+                      company-ghc
+                      company-go
+                      company-irony
+                      elpy
+                      jedi-core
+                      highlight-symbol
+                      helm-gtags		     
+                      helm-projectile
+                      helm-ag
+                      solarized-theme
+                      exec-path-from-shell
+                      web-beautify
+                      dimmer
+                      yasnippet))
 
 ; fetch the list of packages available 
 (unless package-archive-contents
@@ -65,7 +65,7 @@
 ;; Paren mode
 (show-paren-mode t)
 ;; Default theme
-(load-theme 'atom-one-dark t)
+(load-theme 'solarized-dark t)
 ;; Blink
 (blink-cursor-mode t)
 ;; No guru mode
@@ -95,8 +95,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Python configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq elpy-rpc-python-command "/usr/local/opt/python@3.8/bin/python3")
-(setq python-shell-interpreter "/usr/local/opt/python@3.8/bin/python3")
+(setq elpy-rpc-python-command "/usr/bin/python3")
+(setq python-shell-interpreter "/usr/bin/python3")
 
 (if (eq 'system-type "darwin")
     (defvar elpy-rpc-python-command "python3")
@@ -112,6 +112,66 @@
   (setq indent-tabs-mode nil
         python-indent 4)
   )
+
+;; org-mode
+;; See this post for more information:
+;; https://zzamboni.org/post/beautifying-org-mode-in-emacs/
+(setq org-hide-emphasis-markers t)
+(font-lock-add-keywords 'org-mode
+  '(("^ *\\([-]\\) "
+      (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+(let* ((variable-tuple
+        (cond ((x-list-fonts "Pragmata Pro Liga")         '(:font "Pragmata Pro Liga"))
+              ((x-list-fonts "Pragmata Pro Mono") '(:font "Pragmata Pro Mono"))
+              ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
+              ((x-list-fonts "Verdana")         '(:font "Verdana"))
+              ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
+              (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
+       (base-font-color     (face-foreground 'default nil 'default))
+       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+
+  (custom-theme-set-faces
+   'user
+   `(org-level-8 ((t (,@headline ,@variable-tuple))))
+   `(org-level-7 ((t (,@headline ,@variable-tuple))))
+   `(org-level-6 ((t (,@headline ,@variable-tuple))))
+   `(org-level-5 ((t (,@headline ,@variable-tuple))))
+   `(org-level-4 ((t (,@headline ,@variable-tuple :height 1))))
+   `(org-level-3 ((t (,@headline ,@variable-tuple :height 1))))
+   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.1))))
+   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.1))))
+   `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
+
+(custom-theme-set-faces
+  'user
+  '(variable-pitch ((t (:family "Pragmata Pro Liga" :height 120 :weight thin))))
+  '(fixed-pitch ((t ( :family "Pragmata Pro Mono Liga" :height 120 :weight thin)))))
+
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+(add-hook 'org-mode-hook 'visual-line-mode)
+
+(custom-theme-set-faces
+  'user
+  '(org-block ((t (:inherit fixed-pitch))))
+  '(org-code ((t (:inherit (shadow fixed-pitch)))))
+  '(org-document-info ((t (:foreground "dark orange"))))
+  '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+  '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+  '(org-link ((t (:foreground "royal blue" :underline t))))
+  '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+  '(org-property-value ((t (:inherit fixed-pitch))) t)
+  '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+  '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+  '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+  '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
+
+;; org-roam
+(setq org-roam-directory "~/gdrive/org-roam")
+(add-hook 'after-init-hook 'org-roam-mode)
+
+;; org-journal
+(setq org-journal-dir "~/gdrive/org-journal")
 
 ;; Python mode hooks
 (add-hook 'python-mode-hook 'python-custom-hook)
