@@ -167,11 +167,11 @@
   '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
 ;; org-roam
-(setq org-roam-directory "~/gdrive/org-roam")
+(setq org-roam-directory "~/gdrive/notes/org-roam")
 (add-hook 'after-init-hook 'org-roam-mode)
 
 ;; org-journal
-(setq org-journal-dir "~/gdrive/org-journal")
+(setq org-journal-dir "~/gdrive/notes/org-journal")
 
 ;; Python mode hooks
 (add-hook 'python-mode-hook 'python-custom-hook)
