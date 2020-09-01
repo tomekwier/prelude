@@ -167,7 +167,7 @@
   '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
 ;; org-roam
-(setq org-roam-directory "~/gdrive/org-roam")
+(setq org-roam-directory "~/gdrive/notes/org-roam")
 (add-hook 'after-init-hook 'org-roam-mode)
 
 ;; org-journal
