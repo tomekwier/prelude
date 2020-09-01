@@ -129,7 +129,7 @@
               ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
               (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
        (base-font-color     (face-foreground 'default nil 'default))
-       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+        (headline           `(:inherit default :weight normal :width normal :slant normal :foreground ,base-font-color)))
 
   (custom-theme-set-faces
    'user
@@ -145,26 +145,26 @@
 
 (custom-theme-set-faces
   'user
-  '(variable-pitch ((t (:family "Pragmata Pro Liga" :height 120 :weight thin))))
-  '(fixed-pitch ((t ( :family "Pragmata Pro Mono Liga" :height 120 :weight thin)))))
+  '(variable-pitch ((t (:family "Pragmata Pro Liga" :height 110 :weight normal))))
+  '(fixed-pitch ((t ( :family "Pragmata Pro Mono Liga" :height 110 :weight normal)))))
 
 (add-hook 'org-mode-hook 'variable-pitch-mode)
 (add-hook 'org-mode-hook 'visual-line-mode)
 
 (custom-theme-set-faces
   'user
-  '(org-block ((t (:inherit fixed-pitch))))
+  '(org-block ((t (:inherit variable-pitch))))
   '(org-code ((t (:inherit (shadow fixed-pitch)))))
   '(org-document-info ((t (:foreground "dark orange"))))
-  '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-  '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+  '(org-document-info-keyword ((t (:inherit (shadow variable-pitch)))))
+  '(org-indent ((t (:inherit (org-hide variable-pitch)))))
   '(org-link ((t (:foreground "royal blue" :underline t))))
   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
   '(org-property-value ((t (:inherit fixed-pitch))) t)
   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
-  '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
-  '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
+  '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.9))))
+  '(org-verbatim ((t (:inherit (shadow variable-pitch))))))
 
 ;; org-roam
 (setq org-roam-directory "~/gdrive/notes/org-roam")
