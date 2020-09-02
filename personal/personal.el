@@ -743,7 +743,7 @@
 ;; (global-prettify-symbols-mode +1)
 
 (use-package ligature
-  :load-path "/home/hskl/code/ligature.el"
+  :load-path "./ligature.el"
   :config
   ;; Enable the "www" ligature in every possible major mode
   ;; (ligature-set-ligatures 't '("www"))
