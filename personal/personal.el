@@ -140,7 +140,7 @@
    `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.0))))
    `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.0))))
    `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.0))))
-   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.0 :weight regular :underline nil))))
+   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.2 :weight regular :underline nil))))
    `(org-document-title ((t (,@headline ,@variable-tuple :height 1.4 :underline t))))))
 
 (custom-theme-set-faces
@@ -164,6 +164,7 @@
   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
   '(org-todo ((t (:inherit fixed-pitch))))
+  '(org-done ((t (:inherit fixed-pitch))))
   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.9))))
   '(org-verbatim ((t (:inherit (shadow variable-pitch))))))
 
@@ -743,7 +744,7 @@
 ;; (global-prettify-symbols-mode +1)
 
 (use-package ligature
-  :load-path "./ligature.el"
+  :load-path "~/code/ligature.el/"
   :config
   ;; Enable the "www" ligature in every possible major mode
   ;; (ligature-set-ligatures 't '("www"))
@@ -751,7 +752,7 @@
   ;; `variable-pitch' face supports it
   ;; (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
   ;; Enable all Cascadia Code ligatures in programming modes
-  (ligature-set-ligatures 'prog-mode '(
+  (ligature-set-ligatures 't '(
                                         "[ERROR]"
                                         "[DEBUG]"
                                         "[INFO]"
