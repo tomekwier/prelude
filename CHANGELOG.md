@@ -4,7 +4,7 @@
 
 ### New features
 
-* Enable `nlinum-mode` by default. Can be disabled by setting `prelude-minimalistic-ui` to `nil`.
+* Enable `nlinum-mode` by default. Can be disabled by setting `prelude-minimalistic-ui` to `t`.
 * Enable site-wide installation for Prelude.
 * Auto-installs `julia-mode` if needed.
 * Auto-install `adoc-mode` for AsciiDoc files.
@@ -21,6 +21,7 @@
 * Removed `beacon-mode`.
 * Added `transient/` to `.gitignore`.
 * Fallback to `sample/prelude-modules.el` in the absence of a `prelude-modules.el` in one's personal folder.
+* [Ruby] Don't auto-insert coding comments.
 
 ### Bugs fixed
 
